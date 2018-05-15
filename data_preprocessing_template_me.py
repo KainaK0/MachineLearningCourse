@@ -12,7 +12,7 @@ import pandas as pd
 dataset = pd.read_csv('Data.csv')
 
 X = dataset.iloc[:,:-1].values
-Y = dataset.iloc[:,-1].values
+y = dataset.iloc[:,-1].values
 
 #Taking care of missing Data
 from sklearn.preprocessing import Imputer  #import of the class
@@ -27,5 +27,9 @@ X[:, 0] = labelencoder_X.fit_transform(X[:, 0])
 onehotencoder = OneHotEncoder(categorical_features= [0])
 X = onehotencoder.fit_transform(X).toarray()
 
-labelencoder_Y = LabelEncoder()
-Y = labelencoder_Y.fit_transform(Y)
+labelencoder_y = LabelEncoder()
+y = labelencoder_y.fit_transform(y)
+
+#splitting the dataset into the Training set and th Test set
+from sklearn.cross_validation import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y,test_size = 0.2, random_state = 1)
